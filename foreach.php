@@ -207,18 +207,83 @@
         //strpos funkcija prima dva parametra, prvi je string $rec u kome trazimo, ono sto napisemo kao drugi 
         //parametar "a". strpos($s1,$s2) ako $s2 postoji u $s1 kao pod string: prva pozicija pojavljivanja $s2
         // u npr. strpos("Jelena","ele")=>1, strpos("Ana","a")=>0, ako $s2 ne postoji u $s1 vraca => false
-        if(strpos($rec, "a")!=false){
+        if(strpos($rec, "a")!==false){
+//mora da se obuhvati i nula, tj ako se a nalzai kao prvo slovo reci, onda strpos vraca nulu 0, sto je false i onda
+// ne obuhvata slucaj sa !=, nego moramo da poredimo i po tipu i zato koristimo !== da bi ukljcili i taj slucaj
             $br++;
         }
     }
     echo "$br<hr>";
     
-
-
     // 18. Odrediti broj elemenata u nizu stringova koji počinju na slovo 'a' ili 'A'.
 
+    $broj=0;//povecava se ukoliko je ispunjeno da je a na nultoj poziciji, sto znaci da string pocinje na a
+    foreach($stringovi as $ime){
+        // var_dump($ime);
+        // var_dump()
+        if(strpos($ime, "a")===0 || strpos($ime, "A")===0){
+            $broj++;
+        }
+    }
+    echo "Broj stringova koji pocinju na A: $broj<br>";
+
+    //$a = $b (dodela vrednosti-a dobija vrednost b, sa desna na levo)
+    // $a == $b (poredjenje po vrednosti: vraca true ako a i b imaju istu vrednost a false inace)
+    // $a === $b (poredjenje po vrednosti i tipu, sa leve strane prazan string a sa desne nula vraca false
+    // jer nisu isti po tipu iako su nula i false u sistemu gledaju kao iste vrednosti) 
 
 
+    // drugi nacin za 18. zadatak sa substr funkcijom laski, manje komplikovano
+    $br=0;
+    foreach($stringovi as $ime){
+        // substr($str, $pos, $len)
+        // vraca podstring stringa $str pocev od pozicije $pos duzine $len
+        if(substr($ime, 0, 1)=="a" || substr($ime, 0, 1)=="A"){
+            //ovde ne mora ===, jer funkcija substr vraca podrstring, a ne poziciju na kojoj se on nalazi, tako da kada
+            // se poredi sa "a", istog su tipa i ne mora tri znaka jednakosti
+            $br++;
+        }
+    }
+    echo "Broj stringova koji pocinju na A odredjen funkcijom substr: $broj<hr>";
+
+    /* 20. Dati su nizovi $a[0], $a[1], ..., $a[n - 1] i $b[0], $b[1], ..., $b[n - 1]. Formirati niz $c[0], $c[1], ...,
+    $c[2n – 1] čiji su elementi $a[0], $b[0], $a[1], $b[1], ..., $a[n - 1], $b[n - 1].*/
+    $a = array(5,8,9,-2);
+    $b = array(7,0,-1,2);
+    // na pocetku niz u koji zelimo da dodajemo elemente je prazan
+    $c =array();
+    for($i=0; $i<count($a);$i++){
+        // svejedno da li count od a ili od b jer su iste duzine
+        $c[]=$a[$i];//php sam dodeljuje prvi slobodan indeks kada ostavimo prazne uglaste zagrade
+        $c[]=$b[$i];
+
+    }
+    stampajNiz($c);
+
+    //drugi nacin sa dve for petlje sa i za a i j za b,a moze i sa array push ugradjenom funkcijom PROBAJ
+
+    //provera da li ce da prelepi ili stavlja na prvo prazno mesto ili posle poslednjeg zauzetog indeksa 
+    $d[0]=1;
+    $d[2]=3;
+    $d[]=2;
+
+    // 19. Na osnovu celobrojnog niza $a[0], $a[1], ... formirati niz $b[0], $b[1], ... koji sadrži samo pozitivne brojeve.
+    $a = array(13,-4,11,-5,12);
+    $b=array();
+    for($i=0;$i<count($a);$i++){
+        if($a[$i]>0){
+            $b[]=$a[$i];
+        }
+    }
+    stampajNiz($b);
+
+    // 22. Na osnovu niza $a[0], $a[1],..., $a[2n - 1] formirati niz $b[0],$b[1], ..., $b[n - 1].po formuli:
+    $a=array(1,3,4,6,-3);
+    $b=array();
+    for($i=0; $i<count($a)/2; $i++){
+        $b[$i]=($a[$i]+$a[count($a)-1-$i])/2;
+    }
+    stampajNiz($b);
 
 
 ?>

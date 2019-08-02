@@ -104,3 +104,18 @@ SELECT SUM(`salary`) AS "Ukupna plata" FROM `customers`;
 -- prosecna plata
 SELECT AVG(`salary`) AS "Ukupna plata" FROM `customers`;
 
+
+-- UGNJEZDENI UPITI
+-- tacka zarez ; samo na kraju celog upita
+
+-- ako ima dva pacijenta sa najvisom visnom oba ispisuje
+SELECT * FROM `pacijenti` WHERE `visina` = (SELECT MAX(`visina`) FROM `pacijenti`);
+
+-- Pacijent sa najvisom visinom, ako se zove Marija, ako ne postoji pacijent sa najvisom visinom koiji se zove marija
+SELECT * FROM `pacijenti` WHERE `ime` LIKE "Marija" AND `visina` = (SELECT MAX(`visina`) FROM `pacijenti`);
+
+-- da izbaci najvisu Mariju
+SELECT * FROM `pacijenti` WHERE `ime` LIKE "Marija" AND `visina` = (SELECT MAX(`visina`) FROM `pacijenti` WHERE `ime` LIKE "Marija")
+
+
+

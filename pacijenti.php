@@ -73,6 +73,70 @@
         echo "Upit nije uspesno izvrsen.";
     }
 
+    // svi pacijenti sa prezimenom petrovic
+    $sql = "SELECT ime, prezime, visina, tezina, god_rodjenja FROM pacijenti WHERE prezime='Petrovic'";
+
+    $result = mysqli_query($conn, $sql);
+   
+    if($result !=false){
+
+    // stampanje tabele
+    if(mysqli_num_rows($result)==0){
+        echo "Pacijenti ne postoje u bazi";
+    }else{
+        
+        echo "<table class='pac'>";
+        
+        $red=mysqli_fetch_assoc($result);
+        echo "<tr><th>Ime</th><th>Prezime</th><th>Visna</th><th>Tezina</th><th>Godiste</th></tr>";
+        while($red!=false){
+
+            echo "<tr>";
+
+            echo "<td>" . $red["ime"] . "</td><td>" . $red["prezime"] . "</td>";
+            echo "<td>" . $red["visina"] . "</td><td>" . $red["tezina"] . "</td><td>" . $red["god_rodjenja"] . "</td>";
+            
+            echo "</tr>";
+
+            $red=mysqli_fetch_assoc($result);
+
+            }//end-while
+            
+            echo "</table>";
+
+
+        }
+    }
+
+    // odrediti sva razlicita prezimena u bazi i ispisati pacijente sa datim prezimenima
+    $sql = "SELECT DISTINCT prezime FROM pacijenti ORDER BY prezime";
+    $result = mysqli_query($conn, $sql);
+    while($red=mysqli_fetch_assoc($result)){
+        $prezime = $red["prezime"];
+        echo "Pacijenti cije prezime $prezime: ";
+        $sql1 = "SELECT * FROM pacijenti WHERE prezime = '$prezime' ORDER BY ime";
+        $result1 = mysqli_query($conn, $sql1);//izvrsavanje upita
+        
+        echo "<table class='pac'>";
+    
+        echo "<tr><th>Ime</th><th>Prezime</th><th>Visna</th><th>Tezina</th><th>Godiste</th></tr>";
+        while($red=mysqli_fetch_assoc($result1)){
+
+            echo "<tr>";
+
+            echo "<td>" . $red["ime"] . "</td><td>" . $red["prezime"] . "</td>";
+            echo "<td>" . $red["visina"] . "</td><td>" . $red["tezina"] . "</td><td>" . $red["god_rodjenja"] . "</td>";
+            
+            echo "</tr>";
+
+            $red=mysqli_fetch_assoc($result1);
+
+            }//end-while
+            
+            echo "</table>";
+
+    }
+
 
 ?>
 </body>

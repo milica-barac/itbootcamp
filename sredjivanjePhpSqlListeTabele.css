@@ -1,6 +1,88 @@
-table{
+/* PROVERI SVE NA DRIVE, DA LI JE ISTO I NAPISI KOMENTARE */
+
+/* tabela sa klasom pac */
+.pac{
     width: 100%;
     margin: 0;
     background-color: #ffffff;
 }
 
+/* za celije */
+.pac td{
+    font-family: Poppins-Regular;
+    font-size: 15px;
+    color: #666666;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+/* donji okvir sa last child
+.pac tr:last-child{
+    background-color: #6c7ae0;
+}
+*/
+
+/* pristup prvoj celiji */
+.pac tr td:first-child{
+    width: 300px;
+}
+
+/* pristup odredjenoj celiji */
+.pac td:nth-child(1), .pac td:nth-child(2){
+    width: 300px;
+}
+
+/* pristup odredjenoj celiji unutar reda */
+.pac td:nth-child(3), .pac td:nth-child(4){
+    width: 80px;
+}
+
+/* za pristup parnim i neparnim redovima */
+
+/* .pac tr:nth-child(even){
+    background-color: #abcdab;
+}
+.pac tr:nth-child(odd){
+    background-color: lightgray;
+} */
+
+/* pristup svakom trecem redu */
+.pac tr:nth-child(3n){
+    background-color: lightgray;
+}
+
+/* pristup svakom 4 redu, formula moze da se menja */
+.pac tr:nth-child(3n+1){
+    background-color: lightgray;
+}
+
+/* sve ostalo za celije u headeru */
+.pac th{
+    font-family: Poppins-Regular;
+    font-size: 18px;
+    color: #ffffff;
+    padding: 19px 0 19px 10px;
+}
+
+/* header tabele pristupamo preko tr first-child prvi tr */
+.pac tr:first-child{
+    color: #ffffff;
+    background-color: #6c7ae0;
+}
+
+/* kada se stane misem preko celije */
+.pac tr:hover{
+    background-color: #ececff;
+    cursor: pointer;
+}
+
+/* pseudo elementi menjaju, sa jednom, a sa dva puta dve tacke pseudo klase */
+/* Dodati jedinice za visinu (cm) u trecu kolonu */
+.pac td:nth-child(3)::after{
+    content: " (cm)";
+}
+/* Dodati jedinice za tezinu (kg) u cetvrtu kolonu */
+.pac td:nth-child(4)::after{
+    content: " (kg)";
+}

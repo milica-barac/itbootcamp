@@ -5,8 +5,10 @@
 <body>
 <?php
     $servername="localhost";
-    $username = "admin";
-    $password = "admin123";
+    // $username = "admin";
+    $username = "root";
+    // $password = "admin123";
+    $password = "";
     //pazi koju bazu pises
     $database = "ambulanta";
 
@@ -14,7 +16,8 @@
     
     // ako je neuspela konekcija neka umre :D
     if(!$conn){
-        die("Neuspela konekcija. Razlog: " . mysqli_connect_error());
+        // ova linija zaustavlja svako izvrsenje daljeg koda, ukoliko konekcija nije dobra, zato mora u tom slucaju da se obezbedi zatvaranje body i html tag
+        die("Neuspela konekcija. Razlog: " . mysqli_connect_error() . "</body></html>");
     }
 
     mysqli_set_charset($conn, "utf8");
@@ -22,6 +25,7 @@
     // jedna komanda pa nije neophodna jos jedna tacka zarez
     $sql = "SELECT ime, prezime, visina, tezina, god_rodjenja FROM pacijenti";
 
+    // ako imamo i listu i tabelu mora da se resetuje result sledecom linijom, da bi radilo
     $result = mysqli_query($conn, $sql);
     // vraca niz, i to kao asocijativni, ako stavimo select * sve kolone su kljucevi
     
@@ -29,16 +33,17 @@
     if($result !=false){
 
     // Prvo mora da se proveri DA LI POSTOJE REDOVI U TABELI, jer ne moze da ispise ako je tabela prazna, prosledjuje se rezultat da bi se proverilo - mysqli_num_rows vraca broj redova koji zadovoljavaju uslov
+    // stampanje tabele
     if(mysqli_num_rows($result)==0){
         echo "Pacijenti ne postoje u bazi";
     }else{
         // upisujemo i prikazujemo kroz listu
         
-        echo "<table border=1>";
+        echo "<table class='pac'>";
         // echo "<ul>";
         
         // funkcija koja se zove kao da sama ima iterator koji sama povecava, pri svakom izvrsenju, odnosno pozivu, ne moramo mi da ga povecavamo kroz petlju
-        $red=mysqli_fetch_assoc($result);
+        $red=mysqli_fetch_assoc($result);//moze i samo ovo da se napise u while, ali onda se brise ovde, a ono sto pise u while sad, to se brise i ne stavlja se nigde taj uslov
         // ne moze klasicno da se pristupa kao sa obicnim nizovima, nego preko funkcije mysqli_fetch_assoc koja sama povecava iterator
         echo "<tr><th>Ime</th><th>Prezime</th><th>Visna</th><th>Tezina</th><th>Godiste</th></tr>";
         while($red!=false){
@@ -57,7 +62,7 @@
             //pozivamo sve dok ima redova
             $red=mysqli_fetch_assoc($result);//fetch dohvatiti, assoc - kao asocijativni niz
 
-            }
+            }//end-while
             
             echo "</table>";
             // echo "</ul>";
@@ -67,6 +72,8 @@
     }else{
         echo "Upit nije uspesno izvrsen.";
     }
+
+
 ?>
 </body>
 </html>

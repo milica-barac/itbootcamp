@@ -176,18 +176,20 @@
 
     class Pacijent{
         private $ime;
+        private $prezime;
         private $visina;
         private $tezina;
 
-        public function __construct($i,$v,$t){
+        public function __construct($i,$p,$v,$t){
             // mogu da se pozivaju druge metode iz klase
             $this->setIme($i);
+            $this->setPrezime($p);
             $this->setVisina($v);
             $this->setTezina($t);
         }
 
         public function stampaj(){
-            echo "Pacijent: " . $this->ime . ", visok: " . $this->visina . ", tezak: " . $this->tezina. ". <br>";
+            echo "Pacijent: " . $this->ime . $this->prezime . ", visok: " . $this->visina . ", tezak: " . $this->tezina. ". <br>";
         }
 
         public function bmi(){
@@ -227,7 +229,15 @@
             $this->ime=$i;
         }
 
+        public function setPrezime($i){
+            $this->prezime=$i;
+        }
+
         public function getIme(){
+            return $this->ime;
+        }
+
+        public function getPrezime(){
             return $this->ime;
         }
 
@@ -239,12 +249,43 @@
             return $this->tezina;
         }
 
+        public function srednjaVisina($pacijenti){
+            $sum=0;
+            foreach($pacijenti as $pac){
+                $sum += $pac->getVisina();
+            }
+            return $sum/count($this);
+        }
+
+        public function ispisiNajlakseg($pacijenti){
+            $najlaksi=$pacijenti[0];
+            foreach($pacijenti as $pac){
+                if($pac->getTezina()<$najlaksi){
+                    $najlaksi=$pac->getTezina();
+                }
+            }
+            echo $najlaksi->stampaj();
+        }
+
+        public function najveciBmi($pacijenti){
+            $BMI=0;
+            foreach($pacijenti as $pac){
+                if($pac->bmi()>$BMI){
+                    $BMI=$pac->bmi();
+                }
+            }
+            echo $BMI->stampaj();
+        } 
     }
 
 
-    $pac1=new Pacijent("Pera", 187, 78);
-    $pac2=new Pacijent("Mika", 375, 60);
-    $pac3=new Pacijent("Laza", 192, 600);
+    $pac1=new Pacijent("Pera", "Peric", 187, 78);
+    $pac2=new Pacijent("Mika", "Mikic", 375, 60);
+    $pac3=new Pacijent("Laza", "Lazic", 192, 600);
+
+    $pacijenti= array($pac1,$pac2,$pac3);
+
+    $pacijenti->srednjaVisina();
 
     // $pac1->setIme("Pera");
     // $pac1->setVisina(187);
@@ -279,3 +320,121 @@
     }else{
         echo "Pacijent nije kritican<hr>";
     }
+
+    class Brojevi{
+        private $br1;
+        private $br2;
+
+        public function __construct($br1, $br2){
+            $this->setBr1($br1);
+            $this->setBr2($br2);
+        }
+        
+        public function getBr1(){
+            return $this->br1;
+        }
+
+        public function getBr2(){
+            return $this->br2;
+        }
+
+        public function setBr1($br1){
+            $this->br1=$br1;
+        }
+
+        public function setBr2($br2){
+            $this->br2=$br2;
+        }
+
+        public function sabiranje(){
+            return $this->getBr1()+$this->getBr2();
+        }
+
+        public function oduzimanje(){
+            return $this->getBr1()-$this->getBr2();
+        }
+
+        public function mnozenje(){
+            return $this->getBr1()*$this->getBr2();
+        }
+
+        public function deljenje(){
+            return $this->getBr1()/$this->getBr2();
+        }
+
+
+    }
+
+    $obj= new Brojevi(5, 3);
+    $r=$obj->sabiranje();
+    echo $r . "<br>";
+    $r=$obj->oduzimanje();
+    echo $r . "<br>";
+    $r=$obj->mnozenje();
+    echo $r . "<br>";
+    $r=$obj->deljenje();
+    echo $r . "<hr>";
+
+    class Automobil{
+
+        private $marka;
+        private $model;
+        private $tip;
+        private $boja;
+
+        public function __construct($marka, $model, $tip, $boja){
+            $this->marka=$marka;
+            $this->model=$model;
+            $this->tip=$tip;
+            $this->boja=$boja;
+        }
+
+        public function setMarka($m){
+            $this->marka=$m;
+        }
+
+        public function setModel($m){
+            $this->model=$m;
+        }
+
+        public function setTip($t){
+            $this->tip=$t;
+        }
+
+        public function setBoja($b){
+            $this->boja=$b;
+        }
+
+        public function getMarka(){
+            return $this->marka;
+        }
+
+        public function getModel(){
+            return $this->model;
+        }
+
+        public function getTip(){
+            return $this->tip;
+        }
+
+        public function getBoja(){
+            return $this->boja;
+        }
+
+    }
+    $auto1 = new Automobil("BMW", "X6", "urbani terenac", "crna");
+    $auto2 = new Automobil("Audi", "R8", "sporstki", "siva");
+    $auto3 = new Automobil("Pocshe", "Carera", "sportski", "bela");
+    
+    $automobili=array($auto1, $auto2, $auto3);
+
+    foreach($automobili as $auto){
+        echo "Auto marke: " . $auto->getMarka() . 
+        "<br>Model: " . $auto->getModel() . 
+        "<br>Tip: " . $auto->getTip() . 
+        "<br>Boja:" . $auto->getBoja() . "<hr>";
+    }
+
+    
+
+

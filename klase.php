@@ -248,8 +248,8 @@
         public function getTezina(){
             return $this->tezina;
         }
-
-        public function srednjaVisina($pacijenti){
+    }
+        function srednjaVisina($pacijenti){
             $sum=0;
             foreach($pacijenti as $pac){
                 $sum += $pac->getVisina();
@@ -257,17 +257,19 @@
             return $sum/count($this);
         }
 
-        public function ispisiNajlakseg($pacijenti){
+        function ispisiNajlakseg($pacijenti){
+            $min=$pacijenti[0]->getTezina();
             $najlaksi=$pacijenti[0];
             foreach($pacijenti as $pac){
-                if($pac->getTezina()<$najlaksi){
-                    $najlaksi=$pac->getTezina();
+                if($pac->getTezina()<$min){
+                    $min=$pac->getTezina();
+                    $najlaksi=$pac;
                 }
             }
-            echo $najlaksi->stampaj();
+            return $najlaksi->stampaj();
         }
 
-        public function najveciBmi($pacijenti){
+        function najveciBmi($pacijenti){
             $BMI=0;
             foreach($pacijenti as $pac){
                 if($pac->bmi()>$BMI){
@@ -276,16 +278,20 @@
             }
             echo $BMI->stampaj();
         } 
-    }
+    
 
 
     $pac1=new Pacijent("Pera", "Peric", 187, 78);
     $pac2=new Pacijent("Mika", "Mikic", 375, 60);
     $pac3=new Pacijent("Laza", "Lazic", 192, 600);
-
     $pacijenti= array($pac1,$pac2,$pac3);
+    
+    ispisiNajlakseg($pacijenti);
+    // drugi nacin za poziv kada se u return ne poziva stampaj()
+    // $in=ispisiNajlakseg($pacijenti);
+    // $in->stampaj();
 
-    $pacijenti->srednjaVisina();
+    echo "<hr><hr>";
 
     // $pac1->setIme("Pera");
     // $pac1->setVisina(187);

@@ -55,36 +55,21 @@
         }
     }
 
-    function podrzavaNosivost($kamioni, $paket){
-        $maxN=$kamioni[0]->getNosivost();
+    // greska bila da proverava samo za prvi kamion, ovako proverava za sve
+    function pozdrzavaNosivost($kamioni, $paket){
         foreach($kamioni as $k){
-            if($k->getNosivost()>$maxN){
-                $maxN=$k->getNosivost();
-            }
-        }
-        return $maxN;
-
-        if($maxN<$paket){
-            return false;
-        }else{
-            return true;
-        }
-    }
-
-    // drugi kraci nacin
-    function nosiv($kamioni, $paket){
-        foreach($kamioni as $k){
-            if($k->getNosivost()>$paket){
+            if($k->getNosivost()>=$paket){
                 return true;
             }
         }
+        // kad proverimo sve kamione i ne moze ni u jednom da stane tek onda vracamo false
         return false;
     }
     // moze i sa ipitivanjem, odnosno oduzimanjem paketa od nosivosti i proveravanja da li je taj rezultat veci od nule
 
     ispisSvihKamiona($kamioni);
 
-    if(podzavaNosivost($kamioni, 300)==true){
+    if(pozdrzavaNosivost($kamioni, 300)==true){
         echo "Podzava nosivost";
     }else{
         echo "Ne podrzava nosivost";

@@ -77,12 +77,16 @@
     cursor: pointer;
 }
 
-/* pseudo elementi menjaju, sa jednom, a sa dva puta dve tacke pseudo klase */
-/* Dodati jedinice za visinu (cm) u trecu kolonu */
+/* pseudo elementi menjaju, sa jednom, a sa dva puta dve tacke pseudo klase
+Dodati jedinice za visinu (cm) u trecu kolonu
+
 .pac td:nth-child(3)::after{
     content: " (cm)";
 }
-/* Dodati jedinice za tezinu (kg) u cetvrtu kolonu */
+
+Dodati jedinice za tezinu (kg) u cetvrtu kolonu 
+
 .pac td:nth-child(4)::after{
     content: " (kg)";
 }
+*/

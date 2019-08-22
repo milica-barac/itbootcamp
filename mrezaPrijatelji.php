@@ -2,11 +2,14 @@
 
     // Konekcija sa bazom(parametri na osnovu kojih se konektujemo)
     $servername = "localhost";
+    // nad jednom bazom moze da ima pristup vise korisnika, ali nemaju iste privilegije (sta ko moze da radi)
     $username = "admin";
+    // u ovom slucaju napravili smo korisnika (admina) koji ima sve privilegije
     $password = "admin1234";
     $database = "mreza";
 
-    // parametre prosledjujemo da bi napravili konekciju
+    // parametre prosledjujemo da bi napravili konekciju kroz konstruktor mysqli()
+    // mozemo da pravimo vise konekcija, sa razlicitim korisnicima
     $conn = new mysqli($servername, $username, $password, $database);
 
     // proveravamo da li se dobro konektovala, odnosno da li je uspesno izvrsena konekcija, ako dodje do problema kazemo konekciji da umre :D
@@ -17,7 +20,7 @@
     //  mora i ovde zbog slova
     $conn->set_charset('utf8');
 
-    // Podesavanje id logovanog korisnika
+    // Podesavanje id logovanog korisnika, sa sad rucno unosimo
     $id=2; //ovde se posle menja kada sacuvamo u sesiji, za sada unosimo rucno, za testiranje se vracamo na ovu liniju!
     // ovo sam ja
 
@@ -50,8 +53,12 @@
     
     <body>
         <?php
-            //Prikazi sve korisnike koji nisu ja
-            // stavljamo alias AS jer posle koristimo u red uglastim zagradama, elegantnije
+            //Prikazi sve korisnike koji nisu ja(glupo da dodamo sebe za prijatelja)
+            // Kolonama stavljamo alias AS jer posle koristimo u $red uglastim zagradama, elegantnije
+            // moramo da koristimo join, jer nam nije dovoljna informacija da prikazemo samo korisnicko ime(fica123), nego i dodatne informacije iz profila ime, prezime, sve sto nam treba...da bi znali koga da dodamo, obrisemo
+            // imena tabela ako su dugacka, mozemo da stavimo neki alias
+            // moramo da kazemo preko cega su povezane kolone koje JOINujemo, preko ON
+            // sortiramo prvo po imenu, ako ima isto ime, onda po prezimenu
             $sql = "SELECT k.id AS id,
                 k.username AS username, 
                 p.ime AS ime, 
@@ -64,18 +71,23 @@
             ORDER BY p.ime, p.prezime";
 
             // jedan upit query, vise upita multiquery
-            $result = $conn->query($sql);
-            if(!$result){
+            $result = $conn->query($sql);//linija izvrsavanja upita
+            // var_dump($result); kako iygleda objekat, ne iteresuje nas, ali tu se cuva num_rows koji nas interesuje, koristi pazljivo samo za proveru, da vidis da li lepo vraca, tipa za num_rows
+            if(!$result){ //da li ima greske u sql upitu
                 echo "<p>Greska! Razlog: ";
                 echo $conn->error;
                 echo "</p>";
 
-            }else{
+            }else{ //upit je dobar, moze da se izvrsi
+                // ali moze da vrati praznu tabelu, pa treba i to proveriti
                 if($result->num_rows == 0){
+                    // ako nema korisnika ili ima samo jednog u bazi, a to sam ja
                     echo "<p>Nemate nijednog korisnika u mrezi. :( </p>";
-                }else{
+                }else{//IMAMO KORISNIKE
+                    //Mozemo celu html strukturu da formiramo
                     echo "<p>Korisnici: </p>";
                     echo "<ul>";
+                    //dohvatanje reda, dohvata prvi red i kad ponovo dodje u while precutno prebaci na sledeci
                     while($red=$result->fetch_assoc()){
                         echo "<li>";
                         echo $red["ime"];
@@ -94,27 +106,33 @@
                         }
                         echo ")";
                         
-                        $pid = $red["id"];
+                        $pid = $red["id"];//prijatelj id smestamo u promenljivu, kako se izvuce id iz upita, ispita u kakvoj sam vezi sa korisnikom
+                        //da li ima relacije u bazi prijatelji i kakva je veza, postoji tri mogucnosti da pratimo nekog, da nas neko prati i uzajamno pracenje
+
                         $sql1="SELECT * FROM prijatelji WHERE korisnik_id = $id AND prijatelj_id = $pid";
-                        $result1 = $conn->query($sql1);
+                        $result1 = $conn->query($sql1);//izvrsavanje upita
+                        //upit sql1 da li smo mi poslali zahtev korisniku, da li mi pratimo nekog
                         $jatebe = $result1->num_rows; // 0 ili 1 vraca
 
                         $sql2 = "SELECT * FROM prijatelji WHERE korisnik_id = $pid AND prijatelj_id = $id";
-                        $result2 = $conn->query($sql2);
+                        $result2 = $conn->query($sql2);//izvrsavanje 2 upita
+                        //upit sql2 da li korisnik nas prati
                         $timene = $result2->num_rows;
-                        // ako je strogo vece od 1 onda je obostrano jer ce onda da vrati i za jatebe i za timene po 1 
+                        // ako je strogo vece od 1 onda je obostrano pracenje jer ce onda da vrati i za jatebe i za timene po 1, a strogo vece od jedan je 2
                         if($jatebe + $timene > 1){
                             echo " uzajamni prijatelji ";
                             // pita da li je jatebe razlicito od nule
                         }elseif($jatebe){
                             echo " pratim korisnika ";
+                            //da li timene razlicito od nule
                         }elseif($timene){
                             echo " korisnik prati mene ";
                         }else{
+                            //obicno ne pise, i jatebe i timene su nule
                             echo " niko nikog ne prati ";
                         }
 
-                        echo "<a href='mrezaPrijatelji.php?id=$pid'>Prati korisnika</a>";
+                        echo "<a href='mrezaDodaj.php?dodaj=$pid'>Prati korisnika</a>";
                         echo "</li>";
                     }
                     echo "</ul>";

@@ -1,5 +1,5 @@
 <?php
-    // Konekcija sa bazom
+    // Konekcija sa bazom, uvek se radi na pocetku
     $servername = "localhost";
     $username = "admin";
     $password = "admin1234";

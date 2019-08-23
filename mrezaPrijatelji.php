@@ -21,7 +21,7 @@
     $conn->set_charset('utf8');
 
     // Podesavanje id logovanog korisnika, sa sad rucno unosimo
-    $id=2; //ovde se posle menja kada sacuvamo u sesiji, za sada unosimo rucno, za testiranje se vracamo na ovu liniju!
+    $id=1; //ovde se posle menja kada sacuvamo u sesiji, za sada unosimo rucno, za testiranje se vracamo na ovu liniju!
     // ovo sam ja
 
     // Ako se salje zahtev za pracenje korisnika
@@ -133,6 +133,9 @@
                         }
 
                         echo "<a href='mrezaDodaj.php?dodaj=$pid'>Prati korisnika</a>";
+                        
+                        echo " <a href='mrezaBrisi.php?brisi=$pid'>Otprati korisnika</a>";
+                        
                         echo "</li>";
                     }
                     echo "</ul>";

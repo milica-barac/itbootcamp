@@ -48,16 +48,14 @@
                     
                     $pid = $red["ID"];
 
-                    $sql1= "SELECT * FROM prijatelji WHERE korisnik_id=$id AND prijatelj_id=$pid";
+                    $sql1= "SELECT * FROM prijatelji WHERE korisnik_id = $id AND prijatelj_id = $pid";
                     $result1=$conn->query($sql1);
-                    $jaTebe=$result->num_rows;
+                    $jaTebe=$result1->num_rows;
 
-                    $sql2 = "SELECT * FROM prijatelji WHERE korisnik_id=$pid AND prijatelj_id=$id";
+                    $sql2 = "SELECT * FROM prijatelji WHERE korisnik_id = $pid AND prijatelj_id = $id";
                     $result2=$conn->query($sql2);
                     $tiMene=$result2->num_rows;
                     echo "<td>";
-
-//GRESKA IZBACUJE SVUDA OBOSTRANO PRACENJE
 
                     if($jaTebe + $tiMene > 1){
                         echo "Obostrano pracenje";
@@ -72,6 +70,7 @@
 
                     echo "<td>";
                     echo "<a href='mrezaDodaj.php?dodaj=$pid'>Prati korisnika</a>";
+                    echo "<a href='mrezaBrisi.php?brisi=$pid'>Otprati korisnika</a>";
                     echo "</td>";
 
                     echo "</tr>";

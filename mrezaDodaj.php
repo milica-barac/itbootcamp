@@ -31,7 +31,7 @@
             $result = $conn->query($sql1);
         }// end-if prvi(unutrasnji)
         // redirekcija, sa jedne na drugu stranicu
-        header('Location: vezbaPovezivanjeSaBazom.php');
+        header('Location: mrezaPrijatelji.php');//promeni redirekciju, ako hoces da radi za tabelu ili za listu
     }//end-if (spoljasnji)
 
 ?>

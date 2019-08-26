@@ -1,0 +1,124 @@
+/* kad ul dam klasu, ne pristupam mu preko .navBar ul, nego samo preko klase, inace nece da primeni property */
+ .navBar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /* width: 200px; */
+    background-color: royalblue;
+  }
+
+  /* .navBar li{
+      display: inline;
+      float: left;
+  } */
+  /* pri svakoj dodatoj liniji proveravaj, jer posle je teze da se nadje bug */
+  
+ .navBar li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+    text-align: center;
+
+  }
+  
+  /* Change the link color on hover */
+  .navBar li a:hover {
+    background-color: darkblue;
+    color: white;
+    font-size: 20px;
+  }
+
+/* PROVERI SVE NA DRIVE, DA LI JE ISTO I NAPISI KOMENTARE */
+
+/* tabela sa klasom pac */
+.pac{
+    width: 100%;
+    margin: 0;
+    background-color: #ffffff;
+}
+
+/* za celije */
+.pac td{
+    font-family: Poppins-Regular;
+    font-size: 15px;
+    color: #666666;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+/* donji okvir sa last child
+.pac tr:last-child{
+    background-color: #6c7ae0;
+}
+*/
+
+/* pristup prvoj celiji */
+.pac tr td:first-child{
+    width: 300px;
+}
+
+/* pristup odredjenoj celiji */
+.pac td:nth-child(1), .pac td:nth-child(2){
+    width: 300px;
+}
+
+/* pristup odredjenoj celiji unutar reda */
+.pac td:nth-child(3), .pac td:nth-child(4){
+    width: 80px;
+}
+
+/* za pristup parnim i neparnim redovima */
+
+/* .pac tr:nth-child(even){
+    background-color: #abcdab;
+}
+.pac tr:nth-child(odd){
+    background-color: lightgray;
+} */
+
+/* pristup svakom trecem redu */
+.pac tr:nth-child(3n){
+    background-color: lightgray;
+}
+
+/* pristup svakom 4 redu, formula moze da se menja */
+.pac tr:nth-child(3n+1){
+    background-color: lightgray;
+}
+
+/* sve ostalo za celije u headeru */
+.pac th{
+    font-family: Poppins-Regular;
+    font-size: 18px;
+    color: #ffffff;
+    padding: 19px 0 19px 10px;
+}
+
+/* header tabele pristupamo preko tr first-child prvi tr */
+.pac tr:first-child{
+    color: #ffffff;
+    background-color: royalblue;
+}
+
+/* kada se stane misem preko celije */
+.pac tr:hover{
+    background-color: lightblue;
+    cursor: pointer;
+}
+
+/* pseudo elementi menjaju, sa jednom, a sa dva puta dve tacke pseudo klase
+Dodati jedinice za visinu (cm) u trecu kolonu
+
+.pac td:nth-child(3)::after{
+    content: " (cm)";
+}
+
+Dodati jedinice za tezinu (kg) u cetvrtu kolonu 
+
+.pac td:nth-child(4)::after{
+    content: " (kg)";
+}
+*/
+

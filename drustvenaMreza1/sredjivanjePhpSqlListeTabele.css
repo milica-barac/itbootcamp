@@ -1,22 +1,5 @@
 /* kad ul dam klasu, ne pristupam mu preko .navBar ul, nego samo preko klase, inace nece da primeni property */
-
-form{
-    background-color:royalblue;
-    opacity: 0.9;
-    width: 400px;
-    margin: 0 auto;
-    padding: 5;
-    text-align: center;
-}
-
- input[type=submit] {
-    background-color: white;
-    color: darkblue;
-    border: 2px solid blue; /* Green */
-  }
-
  .navBar {
-    opacity: 0.8;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -138,5 +121,4 @@ Dodati jedinice za tezinu (kg) u cetvrtu kolonu
     content: " (kg)";
 }
 */
-
 

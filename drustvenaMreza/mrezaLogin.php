@@ -14,6 +14,10 @@
      */
     // prvi put kad se dodje na stranicu ova logika se preskace, a posle kada se submituje na formu i onda se aktivira ova logika post metode(jedini nacin da se dodje na stranicu post metodom)
     // provera da li se na stranicu doslo post metodom
+
+    // uredjivanje da error pokazuje iznad unutar diva ZAVRSI!!!
+    $error="";
+
     if($_SERVER["REQUEST_METHOD"]=="POST"){
         // u zagradama pisemo name iz inputa, a real_escape priprema za sql upit
         $user = $conn->real_escape_string($_POST['user']);
@@ -53,10 +57,11 @@
 ?>
 <html>
     <head>
-
+        <link rel="stylesheet" type="text/css" href="sredjivanjePhpSqlListeTabele.css">
     </head>
-    <body>
+    <body background="Monthly_M.jpg">
         <!-- post zbog passworda, osetljivi podaci -->
+        <div class="login">
         <form action="mrezaLogin.php" method="POST">
             <label for="user">Username: </label>
             <input type="text" name="user" value="">
@@ -67,5 +72,6 @@
             <br><br>
             <input type="submit" value="Login">
         </form>
+        </div>
     </body>
 </html>

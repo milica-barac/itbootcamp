@@ -28,6 +28,7 @@
             <li><a href='mrezaPrijateljiTabela.php'>Friends</a></li>
         <!-- <li><a href='mrezaPrijateljiLista.php'>Prijatelji</a></li> -->
             <li><a href='mrezaForma.php'>Edit</a></li>
+            <li><a href='mrezaIzmeniSifru.php'>Change password</a></li>
             <li><a href='mrezaLogout.php'>Logout</a></li>
         </ul>
         <br>

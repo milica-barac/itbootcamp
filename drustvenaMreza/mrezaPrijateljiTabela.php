@@ -19,16 +19,22 @@
                 echo "<p>Korisnici: </p>";
                 echo "<table class=pac>";
                 echo "<tr><th>Ime</th><th>Prezime</th><th>Korisnicko ime</th><th>Svojstvo</th><th>Dodaj</th></tr>";
+
+                // $sql="SELECT id FROM korisnici WHERE ime = $ime AND prezime = $prezime";
+                // $result=$conn->query($sql);
+                 
+
                 while($red=$result->fetch_assoc()){
+                    $pid=$red["ID"];    
                     echo "<tr>";
-                    echo "<td>" . $red["Ime"] . "</td>";
-                    echo "<td>" . $red["Prezime"] . "</td>";
+                    echo "<td>" . "<a href='mrezaProfil.php?id=$pid'>" . $red["Ime"] . "</a>" . "</td>";
+                    echo "<td>" . "<a href='mrezaProfil.php?id=$pid'>" . $red["Prezime"] . "</a>" . "</td>";
                     if($red["Pol"]=="z"){
                         echo "<td style='color:red'>" . $red["Korisnicko ime"] . "</td>";
                     }elseif($red["Pol"]=="m"){
                         echo "<td style='color:blue'>" . $red["Korisnicko ime"] . "</td>";
                     }
-                    
+
                     $pid = $red["ID"];
 
                     $sql1= "SELECT * FROM prijatelji WHERE korisnik_id = $id AND prijatelj_id = $pid";

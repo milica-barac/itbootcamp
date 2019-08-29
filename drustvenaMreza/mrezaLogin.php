@@ -28,11 +28,11 @@
         $result=$conn->query($sql);
         // da li je dobar upit
         if(!$result){
-            echo "Upit nije dobar";
+            $error="Upit nije dobar";
         }else{
             // ako je u redu da li je 0, odnosno nema ni jedan rad, to znaci da takav korisnik ne postoji u bazi
             if($result->num_rows==0){
-                echo "Ovakav korisnik ne postoji u bazi";
+                $error="Ovakav korisnik ne postoji u bazi";
             }else{
                 // ovde vec znamo da postoji tacno jedan red, ne moramo da prolazimo kroz sve redove
                 $red=$result->fetch_assoc();
@@ -43,7 +43,7 @@
                 // ne moze da se odhesuje vrednost pass iz baze, to je i poenta, samo da se hesuje password koji se prosledjuje iz inputa u bazu
                 // hesujemo istim tipom md5 i ovu vrednost u koju cuvamo password korisnika napisan u input polju i prosledjen submit dugmetom preko post metode
                 if(md5($pass)!=$red['pass']){
-                    echo "Nije doslo do poklapanja sifara";
+                    $error="Nije doslo do poklapanja sifara";
                 }else{
                     // id korisnika koji postoji u tabeli, pamtimo u sesiji
                     // $_SESSION je globalna promenljiva kojoj mozemo da pristupamo samo ako imamo gore na pocetku session_start() u sesiji mozemo da pamtimo bilo koju vrstu podataka
@@ -59,10 +59,11 @@
     <head>
         <link rel="stylesheet" type="text/css" href="sredjivanjePhpSqlListeTabele.css">
     </head>
-    <body background="Monthly_M.jpg">
+    <body background="blue-background.jpg">
         <!-- post zbog passworda, osetljivi podaci -->
         <div class="login">
         <form action="mrezaLogin.php" method="POST">
+        <span><?php echo $error?></span><br><br>
             <label for="user">Username: </label>
             <input type="text" name="user" value="">
             <br><br>

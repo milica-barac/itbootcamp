@@ -21,7 +21,7 @@
         <!-- ovde uvozimo css -->
         <link rel="stylesheet" type="text/css" href="sredjivanjePhpSqlListeTabele.css">
     </head>
-    <body background="social-networks.jpg">
+    <body background="videoblocks-triangle-polygon.png">
         <!-- menu -->
         <ul class="navBar">
             <li><a href='index.php'>Home</a></li>
@@ -29,6 +29,7 @@
         <!-- <li><a href='mrezaPrijateljiLista.php'>Prijatelji</a></li> -->
             <li><a href='mrezaForma.php'>Edit</a></li>
             <li><a href='mrezaIzmeniSifru.php'>Change password</a></li>
+            <li><a href='mrezaProfil.php'>Profil</a></li>
             <li><a href='mrezaLogout.php'>Logout</a></li>
         </ul>
         <br>
